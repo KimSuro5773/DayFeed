@@ -1,14 +1,22 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useSignUp } from "@/hooks/mutations/use-sign-up";
+import { generateErrorMessage } from "@/lib/error";
 import { useState } from "react";
 import { Link } from "react-router";
+import { toast } from "sonner";
 
 export default function SignUpPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const { mutate: signUp, isPending } = useSignUp();
+  const { mutate: signUp, isPending: isSignUpPending } = useSignUp({
+    onError: (error) => {
+      const message = generateErrorMessage(error);
+      toast.error(message);
+      setPassword("");
+    },
+  });
 
   const handleSubmit = (e: React.SubmitEvent) => {
     e.preventDefault();
@@ -22,13 +30,14 @@ export default function SignUpPage() {
     <>
       <div className="mb-8 text-center">
         <div className="mb-2 text-3xl font-bold tracking-tight text-slate-900">
-          Dayfeed
+          DayFeed
         </div>
         <p className="text-sm text-slate-500">새 계정을 만드세요</p>
       </div>
 
       <form className="flex flex-col gap-3" onSubmit={handleSubmit}>
         <Input
+          disabled={isSignUpPending}
           className="h-12 px-4"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
@@ -36,6 +45,7 @@ export default function SignUpPage() {
           placeholder="이메일"
         />
         <Input
+          disabled={isSignUpPending}
           className="h-12 px-4"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
@@ -45,7 +55,7 @@ export default function SignUpPage() {
         <Button
           type="submit"
           className="mt-1 h-12 w-full text-sm font-semibold"
-          disabled={isPending}
+          disabled={isSignUpPending}
         >
           회원가입
         </Button>

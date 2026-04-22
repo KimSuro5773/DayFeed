@@ -9,13 +9,29 @@ import googleLogo from "@/assets/google-mark.svg";
 import kakaoLogo from "@/assets/kakao-mark.svg";
 
 import { useSignInWithOAuth } from "@/hooks/mutations/use-sign-in-with-oauth";
+import { toast } from "sonner";
+import { generateErrorMessage } from "@/lib/error";
 
 export default function SignInPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const { mutate: signInWithPassword, isPending } = useSignInWithPassword();
-  const { mutate: signInWithOAuth } = useSignInWithOAuth();
+  const { mutate: signInWithPassword, isPending: isSignInWithPasswordPending } =
+    useSignInWithPassword({
+      onError: (error) => {
+        const message = generateErrorMessage(error);
+        toast.error(message);
+        setPassword("");
+      },
+    });
+
+  const { mutate: signInWithOAuth, isPending: isSignInWithOAuthPending } =
+    useSignInWithOAuth({
+      onError: (error) => {
+        const message = generateErrorMessage(error);
+        toast.error(message);
+      },
+    });
 
   const handleSubmit = (e: React.SubmitEvent) => {
     e.preventDefault();
@@ -37,17 +53,20 @@ export default function SignInPage() {
     signInWithOAuth("kakao");
   };
 
+  const isPending = isSignInWithPasswordPending || isSignInWithOAuthPending;
+
   return (
     <>
       <div className="mb-8 text-center">
         <div className="mb-2 text-3xl font-bold tracking-tight text-slate-900">
-          Dayfeed
+          DayFeed
         </div>
         <p className="text-sm text-slate-500">계정에 로그인하세요</p>
       </div>
 
       <form className="flex flex-col gap-3" onSubmit={handleSubmit}>
         <Input
+          disabled={isPending}
           className="h-12 px-4"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
@@ -55,6 +74,7 @@ export default function SignInPage() {
           placeholder="이메일"
         />
         <Input
+          disabled={isPending}
           className="h-12 px-4"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
@@ -78,6 +98,7 @@ export default function SignInPage() {
 
       <div className="flex flex-col gap-2">
         <Button
+          disabled={isPending}
           className="h-11 w-full"
           variant={"outline"}
           onClick={handleSignInWithGoogleClick}
@@ -86,6 +107,7 @@ export default function SignInPage() {
           구글 계정으로 로그인
         </Button>
         <Button
+          disabled={isPending}
           className="h-11 w-full bg-black text-white hover:bg-gray-900 hover:text-white"
           variant={"outline"}
           onClick={handleSignInWithGitHubClick}
@@ -94,6 +116,7 @@ export default function SignInPage() {
           Github 계정으로 로그인
         </Button>
         <Button
+          disabled={isPending}
           className="h-11 w-full bg-[#fee500] text-slate-900 hover:bg-[#f5dd00]"
           variant={"outline"}
           onClick={handleSignInWithKakaoClick}
