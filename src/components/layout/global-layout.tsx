@@ -1,5 +1,6 @@
 import { Link, Outlet } from "react-router";
 import defaultAvatar from "@/assets/default-avatar.png";
+import logo from "@/assets/logo.png";
 import { SunIcon } from "lucide-react";
 
 export default function GlobalLayout() {
@@ -8,6 +9,7 @@ export default function GlobalLayout() {
       <header className="h-15 border-b">
         <div className="m-auto flex h-full w-full max-w-5xl justify-between px-4">
           <Link to={"/"} className="flex items-center gap-2">
+            <img src={logo} className="h-5" />
             <div className="font-bold">DayFeed</div>
           </Link>
 
