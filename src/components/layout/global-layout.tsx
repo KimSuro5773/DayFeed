@@ -21,7 +21,7 @@ export default function GlobalLayout() {
           </div>
         </div>
       </header>
-      <main className="m-auto w-full max-w-5xl flex-1 border-x px-4 py-6">
+      <main className="m-auto w-full max-w-5xl flex-1 px-4 py-6">
         <Outlet />
       </main>
       <footer className="text-muted-foreground border-t py-8 text-sm">
