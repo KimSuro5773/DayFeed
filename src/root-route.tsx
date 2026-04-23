@@ -2,6 +2,7 @@ import { Navigate, Route, Routes } from "react-router";
 import SignInPage from "./pages/sign-in-page";
 import SignUpPage from "./pages/sign-up-page";
 import ForgetPasswordPage from "./pages/forget-password-page";
+import VerifyOtpPage from "./pages/verify-otp-page";
 import IndexPage from "./pages/index-page";
 import PostDetailPage from "./pages/post-detail-page";
 import ProfileDetailPage from "./pages/profile-detail-page";
@@ -19,6 +20,7 @@ export default function RootRoute() {
           <Route path="/sign-in" element={<SignInPage />} />
           <Route path="/sign-up" element={<SignUpPage />} />
           <Route path="/forget-password" element={<ForgetPasswordPage />} />
+          <Route path="/verify-otp" element={<VerifyOtpPage />} />
         </Route>
         <Route element={<MemberOnlyLayout />}>
           <Route path="/reset-password" element={<ResetPasswordPage />} />

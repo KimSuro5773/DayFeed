@@ -16,7 +16,7 @@ const AUTH_ERROR_MESSAGE_MAP: Record<string, string> = {
     "이메일 전송 한도를 초과했습니다. 잠시 후 다시 시도해주세요.",
   over_sms_send_rate_limit:
     "문자 전송 한도를 초과했습니다. 잠시 후 다시 시도해주세요.",
-  otp_expired: "OTP 코드가 만료되었습니다. 다시 시도해주세요.",
+  otp_expired: "인증 코드가 올바르지 않거나 만료되었습니다.",
   otp_disabled: "OTP 사용이 비활성화되어 있습니다.",
   email_address_invalid: "유효하지 않은 이메일 주소입니다.",
   same_password: "이전과 동일한 비밀번호는 사용할 수 없습니다.",

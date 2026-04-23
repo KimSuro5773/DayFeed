@@ -42,3 +42,39 @@ export async function signInWithOAuth(provider: Provider) {
 
   return data;
 }
+
+export async function requestPasswordResetEmail(email: string) {
+  const { data, error } = await supabase.auth.resetPasswordForEmail(email);
+
+  if (error) throw error;
+
+  return data;
+}
+
+export async function verifyPasswordResetOtp({
+  email,
+  token,
+}: {
+  email: string;
+  token: string;
+}) {
+  const { data, error } = await supabase.auth.verifyOtp({
+    email,
+    token,
+    type: "recovery",
+  });
+
+  if (error) throw error;
+
+  return data;
+}
+
+export async function updatePassword(password: string) {
+  const { data, error } = await supabase.auth.updateUser({
+    password,
+  });
+
+  if (error) throw error;
+
+  return data;
+}

@@ -126,12 +126,18 @@ export default function SignInPage() {
         </Button>
       </div>
 
-      <div className="mt-6 text-center">
+      <div className="mt-6 flex flex-col gap-2 text-center">
         <Link
           className="text-sm text-slate-500 hover:text-slate-800 hover:underline"
           to={"/sign-up"}
         >
           계정이 없으시다면? <span className="font-medium">회원가입</span>
+        </Link>
+        <Link
+          className="text-sm text-slate-500 hover:text-slate-800 hover:underline"
+          to={"/forget-password"}
+        >
+          비밀번호를 잊으셨나요?
         </Link>
       </div>
     </>
